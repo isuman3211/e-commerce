@@ -1,4 +1,4 @@
-/* ===== GLOBAL STYLES ===== */
+
 * {
     margin: 0;
     padding: 0;
@@ -17,8 +17,6 @@ body {
     margin: 0 auto;
     padding: 2px;
 }
-
-/* ===== HEADER ===== */
 header {
     background: linear-gradient(135deg, #27f510 0%, #0b0b0a 100%);
     color: rgb(18, 18, 18);
@@ -58,8 +56,6 @@ nav a {
 nav a:hover, nav a.active {
     background: rgba(255,255,255,0.2);
 }
-
-/* Mobile Menu Toggle */
 .mobile-menu-toggle {
     display: none;
     flex-direction: column;
@@ -74,7 +70,6 @@ nav a:hover, nav a.active {
     transition: 0.3s;
 }
 
-/* ===== HERO SECTION ===== */
 .hero {
     height: 600px;
     background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
@@ -99,7 +94,6 @@ nav a:hover, nav a.active {
     margin-bottom: 2rem;
 }
 
-/* ===== SEARCH SECTION ===== */
 .search-section {
     background: rgba(23, 23, 23, 0.9);
     padding: 2rem;
@@ -201,8 +195,6 @@ nav a:hover, nav a.active {
     50% { transform: scale(1.05); }
     100% { transform: scale(1); }
 }
-
-/* ===== BUTTONS ===== */
 .btn {
     display: inline-block;
     padding: 12px 30px;
@@ -232,8 +224,6 @@ nav a:hover, nav a.active {
     background: #667eea;
     color: white;
 }
-
-/* ===== ANIMATIONS ===== */
 .fade-in {
     animation: fadeIn 1s ease-in;
 }
@@ -243,7 +233,6 @@ nav a:hover, nav a.active {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* ===== STORES SECTION ===== */
 .stores {
     padding: 80px 0;
     background: #9ec43d;
@@ -291,7 +280,6 @@ nav a:hover, nav a.active {
     color: #666;
 }
 
-/* ===== PAGE HEADER ===== */
 .page-header {
     background: linear-gradient(135deg, #f9f904 0%, #0c0c0c 100%);
     color: #121212;
@@ -313,7 +301,6 @@ nav a:hover, nav a.active {
     background: linear-gradient(135deg, #00ff66 0%, #fecfef 100%);
 }
 
-/* ===== PRODUCTS SECTION ===== */
 .products {
       background: linear-gradient(to bottom, #af9fc0, #070707);
     padding: 6px 0;
@@ -371,8 +358,6 @@ nav a:hover, nav a.active {
     font-weight: bold;
     margin-bottom: 1rem;
 }
-
-/* Perfume specific styles */
 .perfume-section {
     background: linear-gradient(to bottom, #171716, #1505f1);
 }
@@ -380,8 +365,6 @@ nav a:hover, nav a.active {
 .perfume-card {
     background: linear-gradient(to bottom, #fff, #fef9f3);
 }
-
-/* Music specific styles */
 .music-section {
     background: linear-gradient(to bottom, #af9fc0, #070707);
 }
@@ -396,10 +379,6 @@ nav a:hover, nav a.active {
     border-color: #ff9a9e;
     box-shadow: 0 10px 30px rgba(255, 154, 158, 0.3);
 }
-
-
-
-/* ===== FOOTER ===== */
 footer {
     background: #2c3e50;
     color: white;
@@ -442,8 +421,6 @@ footer {
     padding-top: 20px;
     border-top: 1px solid rgba(255,255,255,0.1);
 }
-
-/* ===== CART MODAL ===== */
 .modal {
     display: none;
     position: fixed;
@@ -510,8 +487,6 @@ footer {
     text-align: right;
     font-size: 1.5rem;
 }
-
-/* ===== PAYMENT MODAL STYLES ===== */
 .payment-content {
     max-width: 700px;
     max-height: 90vh;
@@ -731,8 +706,6 @@ footer {
     cursor: not-allowed;
     transform: none;
 }
-
-/* Processing Modal */
 .processing-content {
     text-align: center;
     padding: 3rem 2rem;
@@ -756,8 +729,6 @@ footer {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-
-/* Success Modal */
 .success-content {
     text-align: center;
     padding: 2rem;
@@ -785,8 +756,6 @@ footer {
 .payment-details strong {
     color: #22c55e;
 }
-
-/* Section Icon */
 .section-icon {
     width: 24px;
     height: 24px;
@@ -795,8 +764,6 @@ footer {
     margin-right: 8px;
     vertical-align: middle;
 }
-
-/* Checkout Button */
 .checkout-btn {
     background: linear-gradient(135deg, #22c55e, #16a34a);
     font-size: 1.1rem;
@@ -808,8 +775,6 @@ footer {
 .checkout-btn:hover {
     background: linear-gradient(135deg, #16a34a, #15803d);
 }
-
-/* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
     .mobile-menu-toggle {
         display: flex;
@@ -882,8 +847,7 @@ footer {
     .location-dropdown {
         min-width: unset;
     }
-    
-    /* Payment Modal Responsive */
+
     .payment-content {
         max-width: 95%;
         margin: 1rem;
@@ -946,7 +910,6 @@ footer {
         font-size: 1.8rem;
     }
 }
-/* ===== FEATURED PRODUCT ENHANCEMENTS ===== */
 .featured-product {
     cursor: pointer;
     transition: all 0.3s ease;
@@ -978,7 +941,6 @@ footer {
     color: white;
 }
 
-/* ===== PRODUCT DETAILS MODAL ===== */
 .product-modal .modal-content {
     max-width: 1000px;
     max-height: 90vh;
@@ -1179,7 +1141,6 @@ footer {
     color: white;
 }
 
-/* Mobile Responsive for Product Details */
 @media (max-width: 768px) {
     .product-detail-body {
         grid-template-columns: 1fr;
@@ -1199,7 +1160,6 @@ footer {
         width: 100%;
     }
 }
-/* ===== AUTHENTICATION BUTTONS ===== */
 .auth-buttons {
     display: flex;
     align-items: center;
@@ -1251,7 +1211,6 @@ footer {
     backdrop-filter: blur(10px);
 }
 
-/* Login Modal */
 .login-modal {
     display: none;
     position: fixed;
@@ -1366,7 +1325,6 @@ footer {
     color: #333;
 }
 
-/* Auth Tabs */
 .auth-tabs {
     display: flex;
     margin-top: 1rem;
@@ -1397,7 +1355,6 @@ footer {
     color: #333;
 }
 
-/* Auth Form Containers */
 .auth-form-container {
     display: none;
     animation: fadeIn 0.3s ease;
@@ -1467,7 +1424,6 @@ footer {
     }
 }
 
-/* Mobile Responsive for Auth */
 @media (max-width: 768px) {
     .auth-buttons {
         display: none;
@@ -1490,7 +1446,6 @@ footer {
         width: 95%;
     }
 }
-/* ===== ENHANCED PRODUCT DETAILS MODAL STYLES ===== */
 
 .product-detail-header {
     display: flex;
@@ -1647,7 +1602,6 @@ footer {
     text-align: right;
 }
 
-/* Mobile responsiveness for product details */
 @media (max-width: 768px) {
     .product-detail-header {
         flex-direction: column;
@@ -1683,7 +1637,6 @@ footer {
         flex-direction: column;
     }
 }
-/* ===== REGISTER BUTTON STYLES ===== */
 
 .register-btn {
     background: linear-gradient(135deg, #ecec04 0%, #1b04ec 100%);
@@ -1707,14 +1660,12 @@ footer {
     transform: translateY(0);
 }
 
-/* Update auth buttons container for better spacing */
 .auth-buttons {
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
 
-/* Mobile responsiveness for auth buttons */
 @media (max-width: 768px) {
     .auth-buttons {
         flex-direction: column;
@@ -1728,7 +1679,6 @@ footer {
         margin: 0;
     }
 }
-/* Notification Animations */
 @keyframes slideIn {
     from {
         transform: translateX(400px);
