@@ -2,7 +2,6 @@
 require_once 'config/config.php';
 
 try {
-    // Create Orders Table
     $pdo->exec("CREATE TABLE IF NOT EXISTS orders (
         id INT AUTO_INCREMENT PRIMARY KEY,
         user_id INT NOT NULL,
@@ -13,7 +12,6 @@ try {
         FOREIGN KEY (user_id) REFERENCES users(id)
     )");
 
-    // Create Order Items Table
     $pdo->exec("CREATE TABLE IF NOT EXISTS order_items (
         id INT AUTO_INCREMENT PRIMARY KEY,
         order_id INT NOT NULL,
