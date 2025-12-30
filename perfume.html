@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Header -->
     <header>
         <div class="container">
             <div class="logo">ጮርሞ ሞል</div>
@@ -34,19 +33,13 @@
             </div>
         </div>
     </header>
-
-    <!-- Page Header -->
     <section class="page-header perfume-header">
         <h1 style="color: black;"> MK cosmetics & Perfume 💄 </h1>
         <h3>ጥርት መለያችን ነው🔥</h3>
     </section>
-
-    <!-- Products Section -->
     <section class="products perfume-section">
         <div class="container">
             <div class="product-grid">
-
-
                 <div class="product-card perfume-card" onclick="showProductDetails('versaceeros')">
                     <div class="product-image"><img src="vip.jpeg" alt=""></div>
                     <h3>HP</h3>
@@ -81,8 +74,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -110,8 +101,6 @@
             </div>
         </div>
     </footer>
-
-    <!-- Cart Modal -->
     <div id="cart-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -125,8 +114,6 @@
             </button>
         </div>
     </div>
-
-    <!-- Login Modal -->
     <div id="login-modal" class="login-modal">
         <div class="login-content">
             <button class="login-close" onclick="closeLogin()">&times;</button>
@@ -134,8 +121,6 @@
                 <h2>Welcome to ጮርሞ ሞል</h2>
                 <p class="auth-subtitle">Sign in to your account</p>
             </div>
-            
-            <!-- Login Form -->
             <div id="login-form-container" class="auth-form-container active">
                 <form class="auth-form" onsubmit="handleLogin(event)">
                     <div class="form-group">
@@ -152,8 +137,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Register Modal -->
     <div id="register-modal" class="login-modal">
         <div class="login-content">
             <button class="login-close" onclick="closeRegister()">&times;</button>
@@ -161,8 +144,6 @@
                 <h2>Join ጮርሞ ሞል</h2>
                 <p class="auth-subtitle">Create your account</p>
             </div>
-            
-            <!-- Register Form -->
             <div id="register-form-container" class="auth-form-container active">
                 <form class="auth-form" onsubmit="handleRegister(event)">
                     <div class="form-group">
@@ -187,16 +168,12 @@
             </div>
         </div>
     </div>
-
-    <!-- Product Details Modal -->
     <div id="product-details-modal" class="modal product-modal">
         <div class="modal-content product-details-content">
             <span class="close" onclick="closeProductDetails()">&times;</span>
             <div id="product-details-container"></div>
         </div>
     </div>
-
-    <!-- Payment Modal -->
     <div id="payment-modal" class="modal">
         <div class="modal-content payment-content">
             <span class="close" onclick="closePaymentModal()">&times;</span>
