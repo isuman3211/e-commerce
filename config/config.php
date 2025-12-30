@@ -1,15 +1,10 @@
 <?php
-// config/config.php
-
-// Set timezone
 date_default_timezone_set('Africa/Addis_Ababa');
 
 $host = 'localhost';
 $dbname = 'etho';
 $username = 'root';
 $password = 'isuman@3';
-
-// Start Session globally
 if (session_status() === PHP_SESSION_NONE) {
     session_start([
         'cookie_httponly' => true,
@@ -24,7 +19,6 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    // Return JSON error if possible, or die if strict
     header('Content-Type: application/json');
     die(json_encode([
         'success' => false,
@@ -32,7 +26,6 @@ try {
     ]));
 }
 
-// Global Constants & Helpers
 define('PASSWORD_MIN_LENGTH', 6);
 
 function isLoggedIn(): bool
