@@ -1,0 +1,28 @@
+[2025-12-29 15:58:51] Request: POST login
+[2025-12-29 15:58:51] Exception: Invalid username or password
+[2025-12-29 15:58:54] Request: POST login
+[2025-12-29 15:58:54] Exception: Invalid username or password
+[2025-12-29 16:13:01] Request: POST login
+[2025-12-29 16:13:38] Request: POST login
+[2025-12-29 16:25:13] Request: POST login
+[2025-12-29 16:26:53] Request: POST register
+[2025-12-29 16:37:34] Request: POST register
+[2025-12-29 16:53:40] Request: POST register
+[2025-12-29 16:58:27] Request: POST login
+[2025-12-29 16:58:27] Exception: Invalid username or password
+[2025-12-29 16:58:34] Request: POST login
+[2025-12-29 20:22:39] Request: POST register
+[2025-12-29 20:24:15] Request: POST login
+[2025-12-29 20:24:15] Exception: Invalid username or password
+[2025-12-29 20:24:33] Request: POST login
+[2025-12-29 20:26:23] Request: POST login
+[2025-12-29 20:26:23] Exception: Invalid username or password
+[2025-12-29 20:26:24] Request: POST login
+[2025-12-29 20:26:24] Exception: Invalid username or password
+[2025-12-29 20:26:24] Request: POST login
+[2025-12-29 20:26:24] Exception: Invalid username or password
+[2025-12-29 20:26:54] Request: POST login
+[2025-12-29 21:16:58] Request: POST login
+[2025-12-29 21:16:58] Exception: Invalid username or password
+[2025-12-29 21:17:18] Request: POST login
+[2025-12-30 09:17:30] Request: POST register

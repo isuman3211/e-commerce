@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Musical Instruments - ጮርሞ ሞል</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">ጮርሞ ሞል</div>
+            <nav id="nav-menu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="electronics.html">አበበ Electronics</a></li>
+                    <li><a href="clothing.html">ከበዳ Fathion</a></li>
+                    <!--<li><a href="music.html" class="active">አብ MI🎵</a></li>-->
+                    <li><a href="perfume.html">MK Cosmetics & Perfume</a></li>
+                    <li><a href="#" id="cart-btn">🛒 Cart (<span id="cart-count">0</span>)</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button id="login-btn" class="auth-btn login-btn">👤 Login</button>
+                <button id="register-btn" class="auth-btn register-btn">📝 Register</button>
+                <button id="logout-btn" class="auth-btn logout-btn" style="display: none;">🚪 Logout</button>
+                <span id="user-welcome" class="user-welcome" style="display: none;">Welcome, <span id="username"></span>!</span>
+            </div>
+            <div class="mobile-menu-toggle" id="mobile-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header music-header">
+        <h1 style="color: black;">አብ Musical Instruments</h1>
+        <h3>ሁሉ በእርሱ ሆነ</h3>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products music-section">
+        <div class="container">
+            <div class="product-grid">
+                <div class="product-card" onclick="showProductDetails('electricguitar')">
+                    <div class="product-image"><img src="Electric Guitar.jpeg" alt=""></div>
+                    <h3>Electric Guitar</h3>
+                    <p class="product-description">High-quality electric guitar with amplifier</p>
+                    <p class="product-price">50,000 Birr</p>
+                    <div class="product-actions">
+                        <button class="btn add-to-cart" data-name="Electric Guitar" data-price="12000" data-category="music" data-product-id="7" onclick="event.stopPropagation()">Add to Cart</button>
+                        <button class="btn-secondary view-details" onclick="event.stopPropagation(); showProductDetails('electricguitar')">View Details</button>
+                    </div>
+                </div>
+                
+                <div class="product-card" onclick="showProductDetails('keyboardsynth')">
+                    <div class="product-image"><img src="Keyboard Synthesizer.jpeg" alt=""></div>
+                    <h3>Keyboard Synthesizer</h3>
+                    <p class="product-description">Professional synthesizer with multiple sounds</p>
+                    <p class="product-price">118,500 Birr</p>
+                    <div class="product-actions">
+                        <button class="btn add-to-cart" data-name="Keyboard Synthesizer" data-price="18500" data-category="music" data-product-id="8" onclick="event.stopPropagation()">Add to Cart</button>
+                        <button class="btn-secondary view-details" onclick="event.stopPropagation(); showProductDetails('keyboardsynth')">View Details</button>
+                    </div>
+                </div>
+                
+                <div class="product-card" onclick="showProductDetails('saxophone')">
+                    <div class="product-image"><img src="Saxophone.jpeg" alt=""></div>
+                    <h3>Saxophone</h3>
+                    <p class="product-description">Alto saxophone with accessories</p>
+                    <p class="product-price">60,000 Birr</p>
+                    <div class="product-actions">
+                        <button class="btn add-to-cart" data-name="Saxophone" data-price="22000" data-category="music" data-product-id="9" onclick="event.stopPropagation()">Add to Cart</button>
+                        <button class="btn-secondary view-details" onclick="event.stopPropagation(); showProductDetails('saxophone')">View Details</button>
+                    </div>
+                </div>
+                
+                <div class="product-card" onclick="showProductDetails('drumset')">
+                    <div class="product-image"><img src="Drum Set.jpeg" alt=""></div>
+                    <h3>Drum Set</h3>
+                    <p class="product-description">Complete 5-piece drum kit with cymbals</p>
+                    <p class="product-price">235,000 Birr</p>
+                    <div class="product-actions">
+                        <button class="btn add-to-cart" data-name="Drum Set" data-price="35000" data-category="music" data-product-id="10" onclick="event.stopPropagation()">Add to Cart</button>
+                        <button class="btn-secondary view-details" onclick="event.stopPropagation(); showProductDetails('drumset')">View Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ጮርሞ ሞል</h3>
+                    <p>በሁሉም እቃዎች ላይ 1ወር የምቆይ discount.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p>📞 +251945657667</p>
+                    <p>📧 abinet23@gmail.com</p>
+                    <p>📍 G03, ጮርሞ ሞል</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#">Facebook</a>
+                        <a href="#">Instagram</a>
+                        <a href="#">Twitter</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ጮርሞ ሞል. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Shopping Cart</h2>
+            <div id="cart-items"></div>
+            <div class="cart-total">
+                <h3>Total: <span id="cart-total">0</span> Birr</h3>
+            </div>
+            <button class="btn checkout-btn" onclick="checkout()">
+                💳 Proceed to Payment
+            </button>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="login-modal">
+        <div class="login-content">
+            <button class="login-close" onclick="closeLogin()">&times;</button>
+            <div class="login-header">
+                <h2>Welcome to ጮርሞ ሞል</h2>
+                <p class="auth-subtitle">Sign in to your account</p>
+            </div>
+            
+            <!-- Login Form -->
+            <div id="login-form-container" class="auth-form-container active">
+                <form class="auth-form" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="login-email">Email or Phone</label>
+                        <input type="text" id="login-email" name="email" placeholder="Enter your email or phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" name="password" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="auth-submit">🔐 Sign In</button>
+                </form>
+                <p class="auth-switch">Don't have an account? <a href="#" onclick="showRegister()">Create one here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="register-modal" class="login-modal">
+        <div class="login-content">
+            <button class="login-close" onclick="closeRegister()">&times;</button>
+            <div class="login-header">
+                <h2>Join ጮርሞ ሞል</h2>
+                <p class="auth-subtitle">Create your account</p>
+            </div>
+            
+            <!-- Register Form -->
+            <div id="register-form-container" class="auth-form-container active">
+                <form class="auth-form" onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label for="register-name">Full Name</label>
+                        <input type="text" id="register-name" name="name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email or Phone</label>
+                        <input type="text" id="register-email" name="email" placeholder="Enter your email or phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Password</label>
+                        <input type="password" id="register-password" name="password" placeholder="Create a password (min 6 characters)" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-confirm">Confirm Password</label>
+                        <input type="password" id="register-confirm" name="confirmPassword" placeholder="Confirm your password" required>
+                    </div>
+                    <button type="submit" class="auth-submit">📝 Create Account</button>
+                </form>
+                <p class="auth-switch">Already have an account? <a href="#" onclick="showLogin()">Sign in here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Details Modal -->
+    <div id="product-details-modal" class="modal product-modal">
+        <div class="modal-content product-details-content">
+            <span class="close" onclick="closeProductDetails()">&times;</span>
+            <div id="product-details-container"></div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="payment-modal" class="modal">
+        <div class="modal-content payment-content">
+            <span class="close" onclick="closePaymentModal()">&times;</span>
+            <div class="payment-header">
+                <h2>💳 Complete Your Payment</h2>
+                <p>Choose your preferred payment method</p>
+            </div>
+            
+            <div class="payment-summary">
+                <h3>Order Summary</h3>
+                <div id="payment-items"></div>
+                <div class="payment-total">
+                    <strong>Total: <span id="payment-total-amount">0</span> Birr</strong>
+                </div>
+            </div>
+            
+            <div class="payment-section">
+                <h3>Select Payment Method</h3>
+                <div class="payment-methods">
+                    <div class="payment-method" onclick="selectPaymentMethod('cbebirr')">
+                        <input type="radio" id="cbebirr" name="payment" value="cbebirr">
+                        <label for="cbebirr">
+                            <img src="cbebirr.jpeg" alt="CBE Birr" class="payment-logo">
+                            <span>CBE Birr</span>
+                        </label>
+                    </div>
+                    <div class="payment-method" onclick="selectPaymentMethod('telebirr')">
+                        <input type="radio" id="telebirr" name="payment" value="telebirr">
+                        <label for="telebirr">
+                            <img src="telebirr.jpeg" alt="Telebirr" class="payment-logo">
+                            <span>Telebirr</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="payment-form" id="payment-form" style="display: none;">
+                <h3>Payment Details</h3>
+                <form id="payment-details-form">
+                    <div class="form-group">
+                        <label for="phone-number">Phone Number</label>
+                        <input type="tel" id="phone-number" placeholder="Enter your phone number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="shipping-address">Shipping Address</label>
+                        <textarea id="shipping-address" placeholder="Enter your full address" required rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="order-notes">Order Notes (Optional)</label>
+                        <textarea id="order-notes" placeholder="Any special instructions" rows="2"></textarea>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="payment-actions">
+                <button class="btn btn-secondary" onclick="closePaymentModal()">Cancel</button>
+                <button class="btn btn-primary" id="confirm-payment-btn" onclick="confirmPayment()" disabled>
+                    🔒 Confirm Payment
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
