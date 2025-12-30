@@ -1,19 +1,13 @@
-// admin.js - Admin Dashboard Logic
-
 document.addEventListener('DOMContentLoaded', async function () {
-    // Auth check
     const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
     if (!currentUser || currentUser.role !== 'admin') {
         alert('Access Denied: Admins Only');
         window.location.href = 'index.html';
         return;
     }
-
-    // Load dashboard data
     await loadStats();
     await loadProducts();
 
-    // Setup form handler
     document.getElementById('add-product-form').addEventListener('submit', handleAddProduct);
 });
 
@@ -28,8 +22,6 @@ async function loadStats() {
             document.getElementById('stat-users').textContent = data.stats.total_users;
             document.getElementById('stat-revenue').textContent = parseFloat(data.stats.total_revenue).toFixed(2) + ' Birr';
             document.getElementById('stat-items').textContent = data.stats.items_sold;
-
-            // Display logs
             const logsContainer = document.getElementById('logs-container');
             if (data.logs.length > 0) {
                 logsContainer.innerHTML = data.logs.map(log => `<div>${log}</div>`).join('');
