@@ -1,25 +1,17 @@
-// ===== SHOPPING CART SYSTEM =====
 let cart = [];
 let authToken = localStorage.getItem('authToken');
 let currentUser = null;
-
-// Update cart count on page load
 document.addEventListener('DOMContentLoaded', function () {
-    // Load current user from localStorage
     const savedUser = localStorage.getItem('currentUser');
     if (savedUser) {
         currentUser = JSON.parse(savedUser);
     }
-
     updateCartCount();
     initializeEventListeners();
     initializeAuth();
     loadCartFromServer();
 });
-
-// Initialize all event listeners
 function initializeEventListeners() {
-    // Mobile menu toggle
     const mobileToggle = document.getElementById('mobile-toggle');
     const navMenu = document.getElementById('nav-menu');
 
@@ -28,8 +20,6 @@ function initializeEventListeners() {
             navMenu.classList.toggle('active');
         });
     }
-
-    // Cart button
     const cartBtn = document.getElementById('cart-btn');
     if (cartBtn) {
         cartBtn.addEventListener('click', function (e) {
@@ -38,21 +28,16 @@ function initializeEventListeners() {
         });
     }
 
-    // Close modal
     const closeBtn = document.querySelector('.close');
     if (closeBtn) {
         closeBtn.addEventListener('click', closeCart);
     }
-
-    // Close modal when clicking outside
     window.addEventListener('click', function (e) {
         const modal = document.getElementById('cart-modal');
         if (e.target === modal) {
             closeCart();
         }
     });
-
-    // Add to cart buttons
     const addToCartButtons = document.querySelectorAll('.add-to-cart');
     addToCartButtons.forEach(button => {
         button.addEventListener('click', function () {
@@ -64,7 +49,6 @@ function initializeEventListeners() {
         });
     });
 
-    // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
@@ -79,7 +63,6 @@ function initializeEventListeners() {
             }
         });
     });
-    // Search functionality
     initializeSearch();
 }
 
@@ -116,12 +99,8 @@ async function performSearch(query) {
 function displaySearchResults(products, query) {
     const storesSection = document.getElementById('stores');
     const container = storesSection.querySelector('.container');
-
-    // Update title
     const title = container.querySelector('.section-title');
     title.innerHTML = `Search Results for "${query}" <button onclick="window.location.reload()" style="font-size: 0.8rem; padding: 5px 10px; cursor: pointer; border:none; background:#eee; border-radius:4px; margin-left:10px;">Clear</button>`;
-
-    // Update grid
     let html = '';
     if (products.length === 0) {
         html = '<p style="text-align:center; grid-column: 1/-1;">No products found.</p>';
@@ -144,10 +123,6 @@ function displaySearchResults(products, query) {
             `;
         });
     }
-
-    // Replace content of store grid only
-    // Note: This replaces the category cards with product cards. 
-    // Ideally we would have a dedicated results section, but for "fixing" relevant to current structure:
     let grid = container.querySelector('.store-grid');
     if (!grid) {
         grid = document.createElement('div');
@@ -155,12 +130,8 @@ function displaySearchResults(products, query) {
         container.appendChild(grid);
     }
     grid.innerHTML = html;
-
-    // Scroll to results
     storesSection.scrollIntoView({ behavior: 'smooth' });
 }
-
-// Load cart from server (PHP API)
 async function loadCartFromServer() {
     if (!authToken) {
         cart = [];
@@ -188,15 +159,12 @@ async function loadCartFromServer() {
     }
 }
 
-// Add item to cart (PHP API)
 async function addToCart(name, price, category, productId) {
     if (!authToken) {
         showNotification('🔐 Please create an account or login first to add items to your cart');
-        showRegister(); // Show registration modal for new users
+        showRegister();
         return;
     }
-
-    // If productId is not provided, try to map from name
     if (!productId) {
         const productMap = {
             'iPhone 15 Pro': 1,
@@ -222,7 +190,7 @@ async function addToCart(name, price, category, productId) {
 
         if (response.ok) {
             showNotification(`${name} added to cart!`);
-            loadCartFromServer(); // Reload cart to update UI
+            loadCartFromServer();
         } else {
             const error = await response.json();
             showNotification('Failed to add to cart: ' + error.message);
@@ -233,7 +201,6 @@ async function addToCart(name, price, category, productId) {
     }
 }
 
-// Update cart count in header
 function updateCartCount() {
     const cartCount = document.getElementById('cart-count');
     if (cartCount) {
@@ -242,20 +209,17 @@ function updateCartCount() {
     }
 }
 
-// Open cart modal
 function openCart() {
     const modal = document.getElementById('cart-modal');
     modal.style.display = 'block';
     displayCart();
 }
 
-// Close cart modal
 function closeCart() {
     const modal = document.getElementById('cart-modal');
     modal.style.display = 'none';
 }
 
-// Display cart items
 function displayCart() {
     const cartItemsContainer = document.getElementById('cart-items');
     const cartTotal = document.getElementById('cart-total');
@@ -297,8 +261,6 @@ function displayCart() {
     cartItemsContainer.innerHTML = html;
     cartTotal.textContent = total.toFixed(2);
 }
-
-// Remove item from cart
 async function removeFromCart(cartItemId) {
     if (!authToken) {
         showNotification('Please login to manage cart');
@@ -335,7 +297,6 @@ async function removeFromCart(cartItemId) {
     }
 }
 
-// Update cart item quantity
 async function updateQuantity(cartItemId, newQuantity) {
     if (!authToken) {
         showNotification('Please login to manage cart');
@@ -373,7 +334,6 @@ async function updateQuantity(cartItemId, newQuantity) {
     }
 }
 
-// Checkout function
 async function checkout() {
     if (!authToken) {
         showNotification('Please login to checkout');
@@ -390,7 +350,6 @@ async function checkout() {
     showPaymentModal(total);
 }
 
-// Show notification
 function showNotification(message) {
     const notification = document.createElement('div');
     notification.textContent = message;
@@ -419,7 +378,6 @@ function showNotification(message) {
     }, 2000);
 }
 
-// ===== AUTHENTICATION SYSTEM =====
 function initializeAuth() {
     const loginBtn = document.getElementById('login-btn');
     const registerBtn = document.getElementById('register-btn');
@@ -436,22 +394,16 @@ function initializeAuth() {
     if (logoutBtn) {
         logoutBtn.addEventListener('click', handleLogout);
     }
-
-    // Update UI based on login status
     updateAuthUI();
-
-    // Show welcome message for new users
     showWelcomeMessageIfNeeded();
 }
 
 function showWelcomeMessageIfNeeded() {
-    // Check if user just registered or logged in
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('welcome') === 'new') {
         setTimeout(() => {
             showNotification('🎉 Welcome to ጮርሞ ሞል! You can now shop, add items to cart, and place orders. Start exploring our products!');
         }, 1000);
-        // Clean URL
         window.history.replaceState({}, document.title, window.location.pathname);
     }
 }
@@ -464,7 +416,6 @@ function updateAuthUI() {
     const username = document.getElementById('username');
 
     if (currentUser) {
-        // User is logged in
         if (loginBtn) loginBtn.style.display = 'none';
         if (registerBtn) registerBtn.style.display = 'none';
         if (logoutBtn) logoutBtn.style.display = 'block';
@@ -480,7 +431,6 @@ function updateAuthUI() {
             }
         }
     } else {
-        // User is not logged in
         if (loginBtn) loginBtn.style.display = 'block';
         if (registerBtn) registerBtn.style.display = 'block';
         if (logoutBtn) logoutBtn.style.display = 'none';
@@ -501,9 +451,6 @@ function closeLogin() {
         modal.style.display = 'none';
     }
 }
-
-
-
 async function handleLogin(event) {
     event.preventDefault();
 
@@ -516,17 +463,14 @@ async function handleLogin(event) {
     }
 
     try {
-        // ✅ Use relative URL since frontend and backend are on same server
         const response = await fetch('api/auth.php?action=login', {
             method: 'POST',
-            credentials: 'include', // Ensure cookies are sent/received
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ username, password })
         });
-
-        // ✅ SAFE JSON PARSING with detailed error handling
         let data = null;
         const responseText = await response.text();
 
@@ -539,30 +483,21 @@ async function handleLogin(event) {
         } catch (jsonError) {
             console.error('JSON parsing error:', jsonError);
             console.error('Response text:', responseText);
-            showNotification('Server Error: ' + responseText.substring(0, 100)); // Show partial error to user
+            showNotification('Server Error: ' + responseText.substring(0, 100));
             throw new Error('Server returned invalid response format.');
         }
-
-        // ✅ Handle different HTTP status codes
         if (response.ok) {
-            // Success (200-299)
             if (data.success === true || data.user) {
-                // Validate response structure
                 if (!data.user || !data.token) {
                     throw new Error('Invalid login response structure from server');
                 }
-
-                // Save user data and token
                 currentUser = data.user;
                 authToken = data.token;
                 localStorage.setItem('currentUser', JSON.stringify(data.user));
                 localStorage.setItem('authToken', data.token);
 
-                // Update UI
                 updateAuthUI();
                 closeLogin();
-
-                // Show success notification with role recognition
                 if (data.user.role === 'admin') {
                     showNotification(`Welcome back, Admin ${data.user.full_name}! 👑 You have admin privileges.`);
                 } else if (data.user.role === 'editor') {
@@ -571,17 +506,13 @@ async function handleLogin(event) {
                     showNotification(`Welcome back, ${data.user.full_name}! 🎉`);
                 }
 
-                // Clear form
                 document.getElementById('login-email').value = '';
                 document.getElementById('login-password').value = '';
-
-                // Reload cart after login
                 loadCartFromServer();
             } else {
                 throw new Error(data.message || data.error || 'Login failed');
             }
         } else {
-            // Handle server errors (400, 401, 500, etc.)
             let errorMessage = 'Login failed';
 
             if (data && (data.message || data.error)) {
@@ -606,8 +537,6 @@ async function handleLogin(event) {
 
     } catch (error) {
         console.error('Login error:', error);
-
-        // Show specific error messages
         if (error.name === 'TypeError' && error.message.includes('fetch')) {
             showNotification('Network error: Cannot connect to server. Please check if the server is running.');
         } else {
@@ -617,26 +546,19 @@ async function handleLogin(event) {
 }
 
 function handleLogout() {
-    // Clear local storage
     localStorage.removeItem('currentUser');
     localStorage.removeItem('authToken');
     cart = [];
-
-    // Call server to destroy session
     fetch('logout.php').then(() => {
         window.location.href = 'index.html';
     });
 }
-
-// Close login modal when clicking outside
 window.addEventListener('click', function (e) {
     const modal = document.getElementById('login-modal');
     if (e.target === modal) {
         closeLogin();
     }
 });
-
-// ===== PAYMENT SYSTEM =====
 let selectedPaymentMethod = null;
 
 function showPaymentModal(total) {
@@ -648,8 +570,6 @@ function showPaymentModal(total) {
         showNotification('Payment modal not found');
         return;
     }
-
-    // Display cart items in payment summary
     let itemsHtml = '';
     cart.forEach(item => {
         const itemTotal = item.price * item.quantity;
@@ -663,8 +583,6 @@ function showPaymentModal(total) {
 
     paymentItems.innerHTML = itemsHtml;
     paymentTotal.textContent = total.toFixed(2);
-
-    // Reset form
     resetPaymentForm();
 
     modal.style.display = 'block';
@@ -677,27 +595,18 @@ function closePaymentModal() {
         resetPaymentForm();
     }
 }
-
 function resetPaymentForm() {
     selectedPaymentMethod = null;
-
-    // Reset radio buttons
     const radios = document.querySelectorAll('input[name="payment"]');
     radios.forEach(radio => radio.checked = false);
-
-    // Hide payment form
     const paymentForm = document.getElementById('payment-form');
     if (paymentForm) {
         paymentForm.style.display = 'none';
     }
-
-    // Disable confirm button
     const confirmBtn = document.getElementById('confirm-payment-btn');
     if (confirmBtn) {
         confirmBtn.disabled = true;
     }
-
-    // Clear form fields
     const phoneInput = document.getElementById('phone-number');
     const addressInput = document.getElementById('shipping-address');
     const notesInput = document.getElementById('order-notes');
@@ -709,20 +618,14 @@ function resetPaymentForm() {
 
 function selectPaymentMethod(method) {
     selectedPaymentMethod = method;
-
-    // Update radio button
     const radio = document.getElementById(method);
     if (radio) {
         radio.checked = true;
     }
-
-    // Show payment form
     const paymentForm = document.getElementById('payment-form');
     if (paymentForm) {
         paymentForm.style.display = 'block';
     }
-
-    // Update form labels based on payment method
     const phoneLabel = document.querySelector('label[for="phone-number"]');
     if (phoneLabel) {
         if (method === 'cbebirr') {
@@ -733,8 +636,6 @@ function selectPaymentMethod(method) {
             document.getElementById('phone-number').placeholder = 'Enter your Telebirr registered phone number';
         }
     }
-
-    // Enable form validation
     validatePaymentForm();
 }
 
@@ -752,7 +653,6 @@ function validatePaymentForm() {
     }
 }
 
-// Add event listeners for form validation
 document.addEventListener('DOMContentLoaded', function () {
     const phoneInput = document.getElementById('phone-number');
     const addressInput = document.getElementById('shipping-address');
@@ -787,10 +687,7 @@ async function confirmPayment() {
     }
 
     try {
-        // Show processing notification
         showNotification('Processing your payment...');
-
-        // Prepare payment method string
         const paymentMethodText = selectedPaymentMethod === 'cbebirr' ? 'CBE Birr' : 'Telebirr';
 
         const response = await fetch('api/orders.php', {
@@ -812,17 +709,12 @@ async function confirmPayment() {
         if (!response.ok) {
             throw new Error(data.error || 'Payment failed');
         }
+ showPaymentSuccess(data.orderId, selectedPaymentMethod);
 
-        // Success! Show confirmation
-        showPaymentSuccess(data.orderId, selectedPaymentMethod);
-
-        // Clear cart and close modal
         cart = [];
         updateCartCount();
         closePaymentModal();
         closeCart();
-
-        // Reload cart from server
         loadCartFromServer();
 
     } catch (error) {
@@ -833,8 +725,6 @@ async function confirmPayment() {
 
 function showPaymentSuccess(orderId, paymentMethod) {
     const methodName = paymentMethod === 'cbebirr' ? 'CBE Birr' : 'Telebirr';
-
-    // Create success modal
     const successModal = document.createElement('div');
     successModal.style.cssText = `
         position: fixed;
@@ -889,27 +779,18 @@ function showPaymentSuccess(orderId, paymentMethod) {
     `;
 
     document.body.appendChild(successModal);
-
-    // Auto-remove after 10 seconds
     setTimeout(() => {
         if (successModal.parentNode) {
             document.body.removeChild(successModal);
         }
     }, 10000);
 }
-
-// Close payment modal when clicking outside
 window.addEventListener('click', function (e) {
     const modal = document.getElementById('payment-modal');
     if (e.target === modal) {
         closePaymentModal();
     }
 });
-
-
-// ===== PRODUCT DETAILS FUNCTIONALITY =====
-
-// Product data with detailed specifications
 const productDetails = {
     'iphone15pro': {
         name: 'Apple iPhone 15 Pro 5G',
@@ -979,10 +860,6 @@ const productDetails = {
         },
         features: ['Active Noise Cancellation', 'Spatial Audio', 'Transparency Mode', 'Wireless Charging', 'IPX4']
     },
-
-
-
-    // ===== CLOTHING PRODUCTS =====
     'formalsuit': {
         name: 'Men\'s Formal Suit',
         fullDescription: 'Premium quality formal suit perfect for business meetings, weddings, and special occasions. Made from high-quality fabric with excellent tailoring and modern fit.',
@@ -1004,8 +881,7 @@ const productDetails = {
         },
         features: ['Slim Fit', 'Premium Fabric', 'Two-Button', 'Professional', 'Dry Clean', 'Multiple Sizes']
     },
-
-
+    
     'eveningdress': {
         name: 'Women\'s Evening Dress',
         fullDescription: 'Elegant evening dress perfect for special occasions, parties, and formal events. Beautiful design with premium fabric and excellent fit.',
@@ -1051,11 +927,7 @@ const productDetails = {
         features: ['100% Cotton', 'Soft Fabric', 'Fun Designs', 'Machine Wash', 'Kids Sizes', 'Comfortable']
     },
 
-
-
-    // ===== MUSIC INSTRUMENTS =====
-
-    'electricguitar': {
+     'electricguitar': {
         name: 'Electric Guitar',
         fullDescription: 'High-quality electric guitar with versatile sound options. Perfect for rock, blues, and contemporary music styles.',
         price: '12,000 Birr',
@@ -1076,9 +948,7 @@ const productDetails = {
         },
         features: ['Solid Body', 'Humbucker Pickups', 'Versatile Sound', 'Professional', '22 Frets', 'Rock & Blues']
     },
-
-
-    'keyboardsynth': {
+'keyboardsynth': {
         name: 'Keyboard Synthesizer',
         fullDescription: 'Versatile keyboard synthesizer with multiple sounds and effects. Great for music production and live performance.',
         price: '18,500 Birr',
@@ -1165,10 +1035,6 @@ const productDetails = {
         },
         features: ['Birch Plywood', 'Internal Snares', 'Satin Finish', 'Versatile Sound', 'Lightweight', 'Modern Style']
     },
-
-    // ===== PERFUME & COSMETICS =====
-
-
     'versaceeros': {
         name: 'Versace Eros',
         fullDescription: 'Passionate and seductive fragrance inspired by Greek mythology. Bold and masculine scent for confident men.',
@@ -1235,7 +1101,6 @@ const productDetails = {
     }
 };
 
-// Show product details modal
 function showProductDetails(productId) {
     const product = productDetails[productId];
 
@@ -1251,8 +1116,6 @@ function showProductDetails(productId) {
         showNotification('Product details modal not found');
         return;
     }
-
-    // Generate stars for rating
     const generateStars = (rating) => {
         const fullStars = Math.floor(rating);
         const hasHalfStar = rating % 1 !== 0;
@@ -1270,7 +1133,6 @@ function showProductDetails(productId) {
         return stars;
     };
 
-    // Generate specifications HTML
     const generateSpecs = (specs) => {
         return Object.entries(specs).map(([key, value]) =>
             `<div class="spec-item">
@@ -1280,7 +1142,6 @@ function showProductDetails(productId) {
         ).join('');
     };
 
-    // Generate features HTML
     const generateFeatures = (features) => {
         return features.map(feature =>
             `<span class="feature-badge">${feature}</span>`
@@ -1336,16 +1197,12 @@ function showProductDetails(productId) {
 
     modal.style.display = 'block';
 }
-
-// Close product details modal
 function closeProductDetails() {
     const modal = document.getElementById('product-details-modal');
     if (modal) {
         modal.style.display = 'none';
     }
 }
-
-// Switch product image
 function switchImage(imageSrc) {
     const mainImage = document.getElementById('main-product-image');
     const thumbnails = document.querySelectorAll('.thumbnail');
@@ -1361,20 +1218,16 @@ function switchImage(imageSrc) {
         }
     });
 }
-
-// Add to cart from product details
 function addToCartFromDetails(productId, productName, price) {
     addToCart(productName, price, 'electronics', productId);
 }
 
-// Close modal when clicking outside
 window.addEventListener('click', function (e) {
     const modal = document.getElementById('product-details-modal');
     if (e.target === modal) {
         closeProductDetails();
     }
 });
-// Show register modal
 function showRegister() {
     const modal = document.getElementById('register-modal');
     if (modal) {
@@ -1382,15 +1235,12 @@ function showRegister() {
     }
 }
 
-// Close register modal
 function closeRegister() {
     const modal = document.getElementById('register-modal');
     if (modal) {
         modal.style.display = 'none';
     }
 }
-
-// Handle registration
 async function handleRegister(event) {
     event.preventDefault();
 
@@ -1398,8 +1248,6 @@ async function handleRegister(event) {
     const email = document.getElementById('register-email').value.trim();
     const password = document.getElementById('register-password').value.trim();
     const confirmPassword = document.getElementById('register-confirm').value.trim();
-
-    // ✅ Client-side validation first
     if (!name || !email || !password || !confirmPassword) {
         showNotification('Please fill in all fields');
         return;
@@ -1415,7 +1263,6 @@ async function handleRegister(event) {
         return;
     }
 
-    // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
         showNotification('Please enter a valid email address');
@@ -1423,7 +1270,6 @@ async function handleRegister(event) {
     }
 
     try {
-        // ✅ Use relative URL since frontend and backend are on same server
         const response = await fetch('api/auth.php?action=register', {
             method: 'POST',
             credentials: 'include',
@@ -1438,7 +1284,6 @@ async function handleRegister(event) {
             })
         });
 
-        // ✅ SAFE JSON PARSING with detailed error handling
         let data = null;
         const responseText = await response.text();
 
@@ -1453,42 +1298,27 @@ async function handleRegister(event) {
             console.error('Response text:', responseText);
             throw new Error('Server returned invalid response format. Please try again.');
         }
-
-        // ✅ Handle different HTTP status codes
         if (response.ok) {
-            // Success (200-299)
             if (data.success === true || data.user) {
-                // Validate response structure
                 if (!data.user || !data.token) {
                     throw new Error('Invalid registration response structure from server');
                 }
-
-                // Save user data and token
                 currentUser = data.user;
                 authToken = data.token;
                 localStorage.setItem('currentUser', JSON.stringify(data.user));
                 localStorage.setItem('authToken', data.token);
-
-                // Update UI
                 updateAuthUI();
                 closeRegister();
-
-                // Show success notification
                 showNotification(`Welcome to ጮርሞ ሞል, ${data.user.full_name}! 🎉 Your account has been created successfully.`);
-
-                // Clear form
                 document.getElementById('register-name').value = '';
                 document.getElementById('register-email').value = '';
                 document.getElementById('register-password').value = '';
                 document.getElementById('register-confirm').value = '';
-
-                // Load cart after registration
                 loadCartFromServer();
             } else {
                 throw new Error(data.message || data.error || 'Registration failed');
             }
         } else {
-            // Handle server errors (400, 409, 500, etc.)
             let errorMessage = 'Registration failed';
 
             if (data && (data.message || data.error)) {
@@ -1513,8 +1343,6 @@ async function handleRegister(event) {
 
     } catch (error) {
         console.error('Registration error:', error);
-
-        // Show specific error messages
         if (error.name === 'TypeError' && error.message.includes('fetch')) {
             showNotification('Network error: Cannot connect to server. Please check if the server is running.');
         } else {
@@ -1523,8 +1351,6 @@ async function handleRegister(event) {
         }
     }
 }
-
-// Close register modal when clicking outside
 window.addEventListener('click', function (e) {
     const registerModal = document.getElementById('register-modal');
     if (e.target === registerModal) {
